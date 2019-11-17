@@ -10,12 +10,13 @@ namespace MultiplatformExecuter
     {
         public void Run(string command)
         {
+            var shell = GetShell();
             var process = new Process()
             {
                 StartInfo = new ProcessStartInfo
                 {
-                    FileName = GetShell(),
-                    Arguments = $"/c \"{command}\"",
+                    FileName = shell.fileName,
+                    Arguments = $"{shell.commandOption} \"{command}\"",
                     CreateNoWindow = false,
                     UseShellExecute = false,
                 }
@@ -24,9 +25,9 @@ namespace MultiplatformExecuter
             process.WaitForExit();
         }
 
-        private static string GetShell() =>
+        private static (string fileName, string commandOption) GetShell() =>
             RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
-                ? "powershell.exe"
-                : "/bin/bash";
+                ? ("powershell.exe", "/c")
+                : ("/bin/bash", "-c");
     }
 }
