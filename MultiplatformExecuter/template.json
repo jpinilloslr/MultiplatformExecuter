@@ -1,0 +1,12 @@
+﻿{
+  "parameters": [
+    {
+      "name": "ProjectName",
+      "placeholder": "tmp-ProjectName-tmp"
+    }
+  ],
+  "run": [
+    "npm --version",
+    "npm --help"
+  ]
+}
